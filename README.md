@@ -1,3 +1,45 @@
+### What
+
+A webservice accepting a JPEG and returning a caption:
+- forked [DeepRNN/image_captioning](https://github.com/DeepRNN/image_captioning)
+    for a pre-trained model.
+- [Flask](http://flask.pocoo.org/) endpoint
+
+### Prerequisites
+
+1. Install [pyenv](https://github.com/pyenv/pyenv-installer) to set up
+    an isolated Python interpreter and workspace
+2. Install Python2.7 with `pyenv`: `pyenv install 2.7.15`
+3. Set up a workspace:
+```shell
+pyenv virtualenv 2.7.15 image_captioning
+git clone -b hackathon --single-branch https://github.com/mey5634/image_captioning.git
+```
+4. `cd` into the repo, run `echo "image_captioning" > .python-version` to
+    activate/deactivate the virtualenv on switching in/out of the directory
+5. pull in dependencies with `pip install -r requirements.txt`
+6. Pull in an `nltk` dependency: `python -c "import nltk; nltk.download(\"punkt\")"`
+7. on MacOS only: `echo "backend: TkAgg" > ~/.matplotlib/matplotlibrc`
+8. Download:
+- [pretrained model](https://app.box.com/s/xuigzzaqfbpnf76t295h109ey9po5t8p) to `./models/289999.npy`
+- `wget` http://images.cocodataset.org/annotations/annotations_trainval2014.zip 
+    and extract `captions_train2014.json` under `./train` and `captions_val2014.json` 
+    under `./val`
+9. test that everything works:
+```shell
+python main.py --phase=test \
+    --model_file='./models/289999.npy' \
+    --beam_size=3
+```
+
+### Quickstart
+
+TODO: describe starting service & api
+
+---
+
+## Original README
+
 ### Introduction
 This neural system for image captioning is roughly based on the paper "Show, Attend and Tell: Neural Image Caption Generation with Visual Attention" by Xu et al. (ICML2015). The input is an image, and the output is a sentence describing the content of the image. It uses a convolutional neural network to extract visual features from the image, and uses a LSTM recurrent neural network to decode these features into a sentence. A soft attention mechanism is incorporated to improve the quality of the caption. This project is implemented using the Tensorflow library, and allows end-to-end training of both CNN and RNN parts.
 

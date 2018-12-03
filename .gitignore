@@ -1,0 +1,9 @@
+*.pyc
+*.csv
+.python-version
+.ipynb_checkpoints/
+__pycache__/
+test/results/
+models/*.npy
+train/*.json
+val/*.json
