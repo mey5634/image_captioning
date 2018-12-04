@@ -152,7 +152,7 @@ class BaseModel(object):
 
     def test_single(self, sess, test_data, vocabulary):
         """ Test the model using any given images. """
-        print("Testing the model ...")
+        print("Running sample image through the model ...")
         config = self.config
 
         captions = []

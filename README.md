@@ -1,6 +1,6 @@
 ### What
 
-A webservice accepting a JPEG and returning a caption:
+A webservice accepting a path to JPEG and returning a caption:
 
 - forked [DeepRNN/image_captioning](https://github.com/DeepRNN/image_captioning)
   for a pre-trained model.
@@ -48,7 +48,7 @@ Test it by sending a JPEG:
 curl -X POST http://127.0.0.1:5000/ \
      -H "Content-type: application/json" \
      -d '{"image":"/path/to/image_captioning/test/images/1.jpg"}'
-# => {"caption":"a red double decker bus driving down a street."}
+# => {"caption":"a red double decker bus driving down a street.","status":200}
 ```
 
 ---

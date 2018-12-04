@@ -14,16 +14,20 @@ def create_app():
     def api_root():
         if request.headers['Content-Type'] == 'application/json':
             img_path = request.json['image']
-            return jsonify(caption=predict(app.config['MODEL'], img_path))
+            message = {
+                'status': 200,
+                'caption': predict(app.config['MODEL'], img_path)
+            }
+            resp = jsonify(message)
+            resp.status_code = 200
         else:
             message = {
                     'status': 415,
-                    'message': 'Unsupported media type'
+                    'caption': 'Unsupported media type'
             }
             resp = jsonify(message)
             resp.status_code = 415
-            return resp
-
+        return resp
     return app
 
 if __name__ == '__main__':
