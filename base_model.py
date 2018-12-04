@@ -150,6 +150,31 @@ class BaseModel(object):
         results.to_csv(config.test_result_file)
         print("Testing complete.")
 
+    def test_single(self, sess, test_data, vocabulary):
+        """ Test the model using any given images. """
+        print("Testing the model ...")
+        config = self.config
+
+        captions = []
+        scores = [] # dummy for now, investigate what's inside!
+
+        # Generate the captions for the images
+        for k in tqdm(list(range(test_data.num_batches)), desc='path'):
+            batch = test_data.next_batch()
+            caption_data = self.beam_search(sess, batch, vocabulary)
+
+            fake_cnt = 0 if k<test_data.num_batches-1 \
+                         else test_data.fake_count
+            for l in range(test_data.batch_size-fake_cnt):
+                word_idxs = caption_data[l][0].sentence
+                score = caption_data[l][0].score
+                caption = vocabulary.get_sentence(word_idxs)
+                captions.append(caption)
+                scores.append(score)
+
+        return captions[0]
+
+
     def beam_search(self, sess, image_files, vocabulary):
         """Use beam search to generate the captions for a batch of images."""
         # Feed in the images to get the contexts and the initial LSTM states

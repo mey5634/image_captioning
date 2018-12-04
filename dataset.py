@@ -60,6 +60,8 @@ class DataSet(object):
             return image_files, word_idxs, masks
         else:
             self.current_idx += self.batch_size
+            #print('image_files:', image_files)
+            #raw_input('continue?')
             return image_files
 
     def has_next_batch(self):
@@ -181,6 +183,16 @@ def prepare_test_data(config):
     dataset = DataSet(image_ids, image_files, config.batch_size)
     print("Dataset built.")
     return dataset, vocabulary
+
+def prepare_single_test(config, path_to_img):
+    """ Prepare the data for testing the model. """
+    image_files = [path_to_img]
+    image_ids = list(range(len(image_files)))
+
+    print("Building the dataset...")
+    dataset = DataSet(image_ids, image_files, config.batch_size)
+    print("Dataset built.")
+    return dataset
 
 def build_vocabulary(config):
     """ Build the vocabulary from the training data and save it to a file. """
